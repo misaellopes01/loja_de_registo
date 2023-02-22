@@ -35,9 +35,28 @@ model Citizen {
 }
 
 model Scheduling {
-  id         String  @id @default(uuid())
-  citizen    Citizen @relation(fields: [citizen_id], references: [id])
-  citizen_id String
+  id               String   @id @default(uuid())
+  citizen          Citizen  @relation(fields: [citizen_id], references: [id])
+  citizen_id       String
+  scheduling_date  DateTime
+  scheduling_state String   @default("PENDING")
+  bi_situation     String
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
 
   @@map("scheduling")
 }
+
+// enum StateBI {
+//   EXPIRED
+//   BAD_CONSERVATION 
+//   LOSS
+//   STEALING 
+//   NEW 
+// }
+
+// enum SchedulingState {
+//   PENDING 
+//   CONFIRMED
+//   EXPIRED 
+// }

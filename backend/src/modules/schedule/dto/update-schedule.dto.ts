@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateScheduleDto } from './create-schedule.dto';
+import { SchedulingState } from '../enum/schedule.enum';
 
-export class UpdateScheduleDto extends PartialType(CreateScheduleDto) {}
+export class UpdateScheduleDto {
+  scheduling_id: string;
+  scheduling_state: SchedulingState.CONFIRMED | SchedulingState.EXPIRED;
+}

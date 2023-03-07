@@ -2,13 +2,42 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { AppointmentScheduler } from './utils/scheduling';
 
 @Injectable()
 export class ScheduleService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private appointmentScheduler: AppointmentScheduler,
+  ) {}
 
-  async create(createScheduleDto: CreateScheduleDto) {
-    return 'This action adds a new schedule';
+  async create({ name, phone, bi, bi_situation }: CreateScheduleDto) {
+    const citizen = await this.prisma.citizen.findFirst({ where: { bi } });
+    const scheduling_date =
+      await this.appointmentScheduler.scheduleAppointment();
+    if (!citizen) {
+      return await this.prisma.citizen.create({
+        data: {
+          name,
+          phone,
+          bi,
+          Scheduling: {
+            create: {
+              bi_situation,
+              scheduling_date,
+            },
+          },
+        },
+      });
+    }
+
+    return await this.prisma.scheduling.create({
+      data: {
+        bi_situation,
+        scheduling_date,
+        citizen_id: citizen.id,
+      },
+    });
   }
 
   async findAll() {

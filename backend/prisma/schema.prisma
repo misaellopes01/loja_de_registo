@@ -26,7 +26,7 @@ model Citizen {
   id         String       @id @default(uuid())
   name       String
   phone      Int
-  bi         String?
+  bi         String?      @unique
   created_at DateTime     @default(now())
   updated_at DateTime     @updatedAt
   Scheduling Scheduling[]

@@ -15,23 +15,23 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
-  @Post()
-  create(@Body() createScheduleDto: CreateScheduleDto) {
-    return this.scheduleService.create(createScheduleDto);
+  @Post('create')
+  async create(@Body() createScheduleDto: CreateScheduleDto) {
+    return await this.scheduleService.create(createScheduleDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.scheduleService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.scheduleService.findOne(+id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateScheduleDto: UpdateScheduleDto,
   ) {
@@ -39,7 +39,7 @@ export class ScheduleController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.scheduleService.remove(+id);
   }
 }

@@ -41,7 +41,9 @@ export class ScheduleService {
   }
 
   async findAll() {
-    return `This action returns all schedule`;
+    const appointments = await this.prisma.scheduling.findMany();
+    // Add citizen data
+    return appointments;
   }
 
   async findOne(id: number) {

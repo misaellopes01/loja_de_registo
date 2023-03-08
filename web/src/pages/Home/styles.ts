@@ -2,80 +2,74 @@ import styled from "styled-components";
 
 
 export const HomeContainer = styled.main`
-    width: 100%;
-    min-height: 100vh;
+    margin: 0 auto;
+    max-width: 70rem;
     height: 100%;
-    background-color: #ddd;
+    max-height: 34.375rem;
+    background-color: ${props => props.theme.background};
     padding: 1rem;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    
+    align-items: center;
+    padding: 0 2rem;
 
-    .banner{
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-direction: column;
-        background-color: #f0f0f0;
-        padding: 1rem;
+    .banner {
         height: 100%;
-        border-radius: 6px;
-        
-        .info {
-            border-bottom: 1px solid #121214;
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding-bottom: 1rem;
-
-            .profile {
-                width: 65%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                flex-direction: row;
-                gap: 1rem;
-
-                img {
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 50%;
-                    border: 3px solid #121214;
-                }
-
-                .content {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 1rem;
-                    flex-direction: column;
-                }
-            }
-            .address {
-                padding-top: 1rem;
-                width: 35%;
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                gap: 1rem;
-                flex-direction: column;
-            }
-        
-        }
-    }
-    .details {
-        padding-top: 1rem;
-        padding-left: 1rem;
+        padding-top: 2rem;
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        strong {
-            text-transform: uppercase;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .content {
+            height: 100%;
+            padding-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            h1 {
+                font-family: 'Baloo 2', sans-serif;
+                color: #272221;
+                line-height: 1.3;
+                font-weight: 800;
+                font-size: 2rem;
+               
+            }
+
+            p {
+                font-size: 1rem;
+                padding-right: 2rem;
+                line-height: 1.5;
+                margin-top: 1rem;
+            }
+
+            ul {
+                padding-top: 2.5rem;
+                list-style: none;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem; 
+
+                li {
+                    display: flex;
+                    justify-content: flex-start;
+                    gap: 0.3rem;
+                    span {
+                        background-color: crimson;
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+
+        img {
+            width: 40%;
         }
     }
+    
 `

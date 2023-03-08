@@ -4,53 +4,56 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 6.5rem;
+    /* height: 5.75rem; */
+    
+    padding: 0 2rem;
+    background-color: ${props => props.theme.red};
+
+    img {
+        width: 100px;
+    }
 
     nav {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.75rem;
-
-        div {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            color: ${props => props.theme['purple-dark']};
-            font-family: 'Roboto';
-            font-weight: 400;
-            font-size: 0.875rem;
-            border-radius: 6px;
-            padding: 0.5rem;
-            background: ${props => props.theme['purple-light']};
-        }
+        gap: 1.5rem;
 
         a {
-            position: relative;
-            border-radius: 6px;
-            padding: 0.5rem;
-            background: ${props => props.theme['yellow-light']};
-            font-weight: 400;
-            font-size: 0.875rem;
-            color: ${props => props.theme['yellow-dark']};
+            text-decoration: none;
+            outline-style: none;
+            color: ${props => props.theme.white};
+            font-style: 'Baloo 2', cursive;
+            font-weight: 500;
+            transition: border .3s, color .25s;
+            &:hover {
+                color: ${props => props.theme.yellow};
+                border-bottom: 1px solid ${props => props.theme.yellow};
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+            }
 
-            span {
-                position: absolute;
-                width: 1.25rem;
-                height: 1.25rem;
-                top: -0.5rem;
-                right: -0.521875rem;
+            &:nth-child(3) {
+                color: ${props => props.theme["gray-900"]};
+                background: ${props => props.theme.yellow};
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: ${props => props.theme['white']};
-                background: ${props => props.theme['yellow-dark']};
-                font-family: 'Roboto';
+                padding: 0.25rem .75rem;
+                border-radius: 6px;
                 font-weight: 700;
-                border-radius: 1000px;
-                text-align: center;
-                
+                gap: 0.25rem;
+                transition: background-color .25s, color .25s;
+
+                &:hover {
+                    background: ${props => props.theme["gray-900"]};
+                    color: ${props => props.theme.yellow};
+                    border: none;
+                }
             }
+       
         }
+
+
     }
 `

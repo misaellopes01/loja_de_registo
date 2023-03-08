@@ -1,14 +1,20 @@
 import { HeaderContainer } from "./styles";
-import { ShoppingCart, MapPin } from 'phosphor-react'
+import { Timer } from 'phosphor-react'
 
-import logoCoffeeDelivery from '../../assets/coffee-delivery-logo.svg'
+import logo from '../../assets/logo.svg'
 import { Link, NavLink } from "react-router-dom";
 
 export function Header() {
     return (
         <HeaderContainer>
+            <img src={logo} alt="" />
             <nav>
-                <h1>DSPLIT - Usuários </h1>                
+               <Link to={'#'}>Início</Link>
+               <Link to={'#'}>Consultar</Link>
+               <Link to={'#'}>
+                    <Timer size={16} weight='bold' />
+                    Agendar
+                </Link>              
             </nav>
         </HeaderContainer>
     )

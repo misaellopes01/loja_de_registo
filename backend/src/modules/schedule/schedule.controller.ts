@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Interval } from '@nestjs/schedule';
 import { ScheduleService } from './schedule.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
 
 @Controller('schedule')
 export class ScheduleController {
@@ -20,26 +20,28 @@ export class ScheduleController {
     return await this.scheduleService.create(createScheduleDto);
   }
 
-  @Get()
+  @Get('all')
   async findAll() {
     return this.scheduleService.findAll();
   }
 
-  @Get(':id')
+  @Get('find/:id')
   async findOne(@Param('id') id: string) {
-    return this.scheduleService.findOne(+id);
+    return this.scheduleService.findOne(id);
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateScheduleDto: UpdateScheduleDto,
-  ) {
-    return this.scheduleService.update(+id, updateScheduleDto);
+  @Patch('update/:id')
+  async update(@Param('id') id: string) {
+    await this.scheduleService.update(id);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   async remove(@Param('id') id: string) {
-    return this.scheduleService.remove(+id);
+    return this.scheduleService.remove(id);
+  }
+
+  @Interval(1000)
+  async scheduleTask() {
+    await this.scheduleService.checkAndUpdateSchedulingStatusExpired();
   }
 }

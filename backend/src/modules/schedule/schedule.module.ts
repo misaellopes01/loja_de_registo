@@ -8,4 +8,4 @@ import { AppointmentScheduler } from './utils/scheduling';
   controllers: [ScheduleController],
   providers: [ScheduleService, PrismaService, AppointmentScheduler],
 })
-export class ScheduleModule {}
+export class SchedulesModule {}

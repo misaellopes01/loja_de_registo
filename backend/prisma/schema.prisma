@@ -35,14 +35,15 @@ model Citizen {
 }
 
 model Scheduling {
-  id               String   @id @default(uuid())
-  citizen          Citizen  @relation(fields: [citizen_id], references: [id])
-  citizen_id       String
-  scheduling_date  DateTime
-  scheduling_state String   @default("PENDING")
-  bi_situation     String
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
+  id                     String   @id @default(uuid())
+  citizen                Citizen  @relation(fields: [citizen_id], references: [id])
+  citizen_id             String
+  scheduling_date        DateTime
+  scheduling_state       String   @default("PENDING")
+  bi_situation           String
+  bi_gv_system_situation String?
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
 
   @@map("scheduling")
 }

@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AuthModule } from './modules/authentication/auth.module';
 import { UserModule } from './modules/user/user.module';
-import { ConfigModule } from '@nestjs/config';
-import { ScheduleModule } from './modules/schedule/schedule.module';
+import { SchedulesModule } from './modules/schedule/schedule.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
     }),
     AuthModule,
     UserModule,
-    ScheduleModule,
+    SchedulesModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [],
   providers: [],

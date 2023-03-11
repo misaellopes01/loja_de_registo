@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { SchedulingState } from './enum/schedule.enum';
 import { AppointmentScheduler } from './utils/scheduling';
 
 @Injectable()
@@ -11,7 +11,13 @@ export class ScheduleService {
     private appointmentScheduler: AppointmentScheduler,
   ) {}
 
-  async create({ name, phone, bi, bi_situation }: CreateScheduleDto) {
+  async create({
+    name,
+    phone,
+    bi,
+    bi_situation,
+    bi_gv_system_situation,
+  }: CreateScheduleDto) {
     const citizen = await this.prisma.citizen.findFirst({ where: { bi } });
     const scheduling_date =
       await this.appointmentScheduler.scheduleAppointment();
@@ -25,6 +31,7 @@ export class ScheduleService {
             create: {
               bi_situation,
               scheduling_date,
+              bi_gv_system_situation,
             },
           },
         },
@@ -36,25 +43,90 @@ export class ScheduleService {
         bi_situation,
         scheduling_date,
         citizen_id: citizen.id,
+        bi_gv_system_situation,
       },
     });
   }
 
   async findAll() {
-    const appointments = await this.prisma.scheduling.findMany();
-    // Add citizen data
+    const appointments = await this.prisma.scheduling.findMany({
+      select: {
+        id: true,
+        scheduling_state: true,
+        scheduling_date: true,
+        bi_situation: true,
+        bi_gv_system_situation: true,
+        created_at: true,
+        citizen: {
+          select: {
+            id: true,
+            bi: true,
+            name: true,
+            phone: true,
+          },
+        },
+      },
+    });
+    // Add citizen data: Done
     return appointments;
   }
+  j;
 
-  async findOne(id: number) {
-    return `This action returns a #${id} schedule`;
+  async findOne(id: string) {
+    const appointment = await this.prisma.scheduling.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        scheduling_state: true,
+        scheduling_date: true,
+        bi_situation: true,
+        bi_gv_system_situation: true,
+        created_at: true,
+        citizen: {
+          select: {
+            id: true,
+            bi: true,
+            name: true,
+            phone: true,
+          },
+        },
+      },
+    });
+    return appointment;
   }
 
-  async update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return `This action updates a #${id} schedule`;
+  async update(id: string) {
+    await this.prisma.scheduling.update({
+      data: {
+        scheduling_state: SchedulingState.CONFIRMED,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} schedule`;
+  async remove(id: string) {
+    return await this.prisma.scheduling.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async checkAndUpdateSchedulingStatusExpired() {
+    const currentDate = new Date();
+    await this.prisma.scheduling.updateMany({
+      data: {
+        scheduling_state: SchedulingState.EXPIRED,
+      },
+      where: {
+        scheduling_date: {
+          lt: currentDate,
+        },
+      },
+    });
   }
 }

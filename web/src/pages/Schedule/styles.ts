@@ -20,13 +20,15 @@ export const ScheduleContainer = styled.main`
       height: 32.25rem;
       background: #f0f0f0;
       border-radius: 8px;
+      display: flex;
+      flex-direction: column;
 
-      main {
+    main {
         height: 23.125rem;
         padding: 2.5rem;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
 
         strong, span {
           line-height: .5;
@@ -74,9 +76,60 @@ export const ScheduleContainer = styled.main`
             font-size: 0.875rem;
           }
       }
+      input {
+        border: none;
+        background: ${props => props.theme["gray-100"]};
+        padding: 0.65625rem 1.3125rem;
+      }
+      select {
+        border: none;
+        background: ${props => props.theme["gray-100"]};
+        padding: 0.59rem 1.3rem;
+        font-family: 'Roboto', sans-serif;
+      }
+      #bi {
+        width: 12.5rem;
+      }
+      > div {
+        display: flex;
+        gap: 0.5rem;
 
-      footer {
-        border-top: 0.75rem solid #fff;
+        input {
+          width: 12.5rem;
+        }
+        select {
+          width: 100%;
+        }
+      }
+    }
+    footer {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      border-top: 1rem solid #fff;
+
+      a {
+        background: ${props => props.theme["gray-100"]};
+        color: ${props => props.theme["gray-500"]};
+        padding: 1.2rem 6.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+      }
+      button {
+        background: ${props => props.theme.green};
+        padding: 1.2rem 7rem;
+        border-style: none;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: ${props => props.theme["gray-500"]};
+        cursor: pointer;
       }
     }
   }

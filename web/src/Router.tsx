@@ -1,8 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
+import { AdminLayout } from './layouts/AdminLayout'
 import { DefaultLayout } from './layouts/DefaultLayout'
-import { Consult } from './pages/Consult'
-import { Home } from './pages/Home'
-import { Schedule } from './pages/Schedule'
+import { Dashboard } from './pages/Admin/Dashboard'
+import { Consult } from './pages/Client/Consult'
+import { Home } from './pages/Client/Home'
+import { Result } from './pages/Client/Result'
+import { Schedule } from './pages/Client/Schedule'
 
 
 export function Router() {
@@ -12,7 +15,10 @@ export function Router() {
                 <Route path='/' element={<Home />} />
                 <Route path='/consult' element={<Consult />} />
                 <Route path='/schedule' element={<Schedule />} />
-                <Route path='/result' element={<Schedule />} />
+                <Route path='/result' element={<Result />} />
+            </Route>
+            <Route path='/admin' element={<AdminLayout />}>
+                <Route path='/admin' element={<Dashboard />} />
             </Route>
         </Routes>
     )

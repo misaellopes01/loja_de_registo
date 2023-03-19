@@ -20,8 +20,8 @@ export const defaultTheme = {
   'gray-800': '#202024',
   'gray-900': '#121214',
   green: '#80EA3F',
-
-  // PRODUCT
+ 'green-card': '#21A700',
+  blue: '#003D99',
   'purple-light': '#EBE5F9',
   purple: '#8047F8',
   'purple-dark': '#4B2995',

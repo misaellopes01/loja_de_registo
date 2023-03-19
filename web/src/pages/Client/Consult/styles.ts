@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const ConsultContainer = styled.main`
-  width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding-bottom: 10rem;

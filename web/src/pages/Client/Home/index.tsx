@@ -2,10 +2,10 @@ import { Coffee, MapPin, Package, PersonSimple, Timer } from "phosphor-react"
 import { useEffect, useState } from "react"
 import { HomeContainer } from "./styles"
 
-import banner from './../../assets/banner.png'
-import woman from './../../assets/woman.svg'
-import warning from './../../assets/warning.svg'
-import info from './../../assets/info.svg'
+import banner from './../../../assets/banner.png'
+import woman from './../../../assets/woman.svg'
+import warning from './../../../assets/warning.svg'
+import info from './../../../assets/info.svg'
 
 export function Home() {
 

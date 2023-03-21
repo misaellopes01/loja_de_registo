@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { AdminLayout } from './layouts/AdminLayout'
 import { DefaultLayout } from './layouts/DefaultLayout'
 import { Dashboard } from './pages/Admin/Dashboard'
+import { Scheduling } from './pages/Admin/Scheduling'
 import { Consult } from './pages/Client/Consult'
 import { Home } from './pages/Client/Home'
 import { Result } from './pages/Client/Result'
@@ -19,6 +20,7 @@ export function Router() {
             </Route>
             <Route path='/admin' element={<AdminLayout />}>
                 <Route path='/admin' element={<Dashboard />} />
+                <Route path='/admin/scheduling' element={<Scheduling />} />
             </Route>
         </Routes>
     )

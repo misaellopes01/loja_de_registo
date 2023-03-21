@@ -17,7 +17,7 @@ export function AdminLayout() {
             <section>
                 <nav>
                     <NavLink to={'/admin'}>Dashboard</NavLink>
-                    <NavLink to={''}>Agendamentos</NavLink>
+                    <NavLink to={'/admin/scheduling'}>Agendamentos</NavLink>
                 </nav>
                 <Outlet />
             </section>

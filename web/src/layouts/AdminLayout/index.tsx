@@ -21,6 +21,9 @@ export function AdminLayout() {
                 </nav>
                 <Outlet />
             </section>
+           <footer>
+            
+           </footer>
         </AdminContainer>
     )
 }

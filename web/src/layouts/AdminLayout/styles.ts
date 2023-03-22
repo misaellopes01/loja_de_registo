@@ -81,4 +81,8 @@ export const AdminContainer = styled.div`
             }
         }
     }
+    footer {
+        background: ${props => props.theme["gray-700"]};
+        height: 6rem;
+    }
 `

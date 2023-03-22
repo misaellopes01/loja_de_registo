@@ -31,7 +31,7 @@ export const ResultContainer = styled.main`
     height: 100%;
     display: flex;
     flex-direction: column;
-    
+    padding-bottom: 2rem;
     gap: 2rem;
 
       

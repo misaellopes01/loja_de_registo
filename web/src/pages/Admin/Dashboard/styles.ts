@@ -4,11 +4,13 @@ export const DashboardContainer = styled.section`
   width: 100%;
   padding: 1rem;
   background-color: ${props => props.theme["gray-100"]};
+  display: flex;
+  flex-direction: column;
   h1 {
     text-align: center;
     text-transform: uppercase;
     font-size: 2rem;
-    line-height: 3.5;
+    line-height: 2;
     font-family: 'Baloo 2', sans-serif;
   }
 
@@ -17,9 +19,10 @@ export const DashboardContainer = styled.section`
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     row-gap: 3rem;
+    padding-top: 2rem;
 
     .card {
-      width: 20rem;
+      width: 25rem;
       height: 12rem;
       background-color: ${props => props.theme["gray-100"]};
       border-radius: 6px;
@@ -43,5 +46,6 @@ export const DashboardContainer = styled.section`
         }
       }
     }
+    
   }
 `

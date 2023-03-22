@@ -48,7 +48,8 @@ export const ConsultContainer = styled.main`
       justify-content: center;
       gap: 1rem;
       border-top: 1rem solid #fff;
-      button {
+      a {
+        text-decoration: none;
         background: ${props => props.theme.green};
         padding: 0.8rem 6rem;
         border-style: none;
@@ -56,8 +57,13 @@ export const ConsultContainer = styled.main`
         font-size: 0.875rem;
         text-transform: uppercase;
         font-weight: 700;
-        color: ${props => props.theme["gray-500"]};
+        color: ${props => props.theme["gray-600"]};
         cursor: pointer;
+
+        &:disabled {
+          cursor: not-allowed;
+          background: ${props => props.theme["green-card"]};
+        }
       }
     }
   }

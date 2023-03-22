@@ -1,35 +1,42 @@
+import { api } from "../../../lib/api";
 import { ScheduleCard } from "../../../components/ScheduleCard";
 import { ResultContainer, Span } from "./styles";
+import { useEffect, useState } from "react";
+import { useSearchContext } from "../../../contexts/SearchContext";
 
 export interface ScheduleProps {
-    name: string
-    state: string
-    bi_state: string
-    date: string
+    id: string,
+    scheduling_state: string,
+    scheduling_date: Date,
+    bi_situation: string,
+    bi_gv_system_situation: string,
+    created_at: Date,
+    citizen: {
+      id: string,
+      bi: string,
+      name: string,
+      phone: number
+    }
 }
 
-const schedule: ScheduleProps[] = [
-  {
-    name: 'Teresa Pinto',
-    bi_state: 'Averbamento',
-    date: '20/03/2023',
-    state: 'pending'
-  },
-  {
-    name: 'Teresa Pinto',
-    bi_state: 'Averbamento',
-    date: '17/03/2023',
-    state: 'expired'
-  },
-  {
-    name: 'Teresa Pinto',
-    bi_state: 'Expirado',
-    date: '10/03/2023',
-    state: 'confirmed'
-  }
-]
-
 export function Result() {
+
+    const [scheduleData, setScheduleData] = useState<ScheduleProps[]>([])
+    const { consultData } = useSearchContext()
+
+    useEffect(() => {
+      async function getSchedules() {
+        try {
+          const response = await api.post('/schedule/citizen/many', { bi_phone: consultData })
+          console.log(consultData)
+          setScheduleData(response.data)
+        }
+        catch (error) {
+          console.log(error);
+        }
+      }
+      getSchedules() 
+    }, [consultData])
 
     return (
         <ResultContainer>
@@ -40,9 +47,9 @@ export function Result() {
             <Span statusColor="blue">Atendido</Span>
           </div>
           <section>
-            {schedule.map((item) => (
-              <ScheduleCard schedule={item} />
-            ))}
+            {scheduleData.length > 0 ? scheduleData.map((item) => (
+              <ScheduleCard key={item.id} schedule={item} />
+            )) : <span>Nenhum agendamento encontrado para {consultData}</span>}
           </section>
 
         </ResultContainer>

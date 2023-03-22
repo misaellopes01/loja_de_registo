@@ -38,6 +38,13 @@ export class ScheduleService {
       });
     }
 
+    await this.prisma.citizen.update({
+      where: { bi },
+      data: {
+        phone,
+      },
+    });
+
     return await this.prisma.scheduling.create({
       data: {
         bi_situation,
@@ -90,6 +97,42 @@ export class ScheduleService {
             bi: true,
             name: true,
             phone: true,
+          },
+        },
+      },
+    });
+    return appointment;
+  }
+
+  async findManyByCitizen(bi_phone: string | number) {
+    const appointment = await this.prisma.citizen.findMany({
+      where: {
+        OR: [
+          {
+            bi: String(bi_phone),
+          },
+          {
+            phone: !isNaN(Number(bi_phone)) ? Number(bi_phone) : 0,
+          },
+        ],
+      },
+      select: {
+        Scheduling: {
+          select: {
+            id: true,
+            bi_situation: true,
+            scheduling_state: true,
+            scheduling_date: true,
+            bi_gv_system_situation: true,
+            created_at: true,
+            citizen: {
+              select: {
+                id: true,
+                bi: true,
+                name: true,
+                phone: true,
+              },
+            },
           },
         },
       },

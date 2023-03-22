@@ -6,10 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { Interval } from '@nestjs/schedule';
 import { ScheduleService } from './schedule.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
+
+interface QueryPhoneOrBI {
+  bi_phone: string | number;
+}
 
 @Controller('schedule')
 export class ScheduleController {
@@ -28,6 +33,18 @@ export class ScheduleController {
   @Get('find/:id')
   async findOne(@Param('id') id: string) {
     return this.scheduleService.findOne(id);
+  }
+
+  @Post('citizen/many')
+  async findManyByCitizen(@Body() { bi_phone }: QueryPhoneOrBI) {
+    if (!bi_phone) {
+      return new BadRequestException('Can not read undefined');
+    }
+    const citizenScheduling = await this.scheduleService.findManyByCitizen(
+      bi_phone,
+    );
+
+    return citizenScheduling[0].Scheduling;
   }
 
   @Patch('update/:id')

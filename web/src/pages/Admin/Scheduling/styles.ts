@@ -4,11 +4,13 @@ export const SchedulingContainer = styled.section`
   width: 100%;
   padding: 1rem;
   background-color: ${props => props.theme["gray-100"]};
+  display: flex;
+  flex-direction: column;
   h1 {
     text-align: center;
     text-transform: uppercase;
     font-size: 2rem;
-    line-height: 3.5;
+    line-height: 2;
     font-family: 'Baloo 2', sans-serif;
   }
 
@@ -90,15 +92,43 @@ export const SchedulingContainer = styled.section`
         }
       }
     }
-    .scheduleCard {
-      background-color: ${props => props.theme.white};
+    .scheduleHeader {
+      background-color: ${props => props.theme["gray-100"]};
       box-shadow: 0 0 15px ${props => props.theme["gray-300"]};
       padding: 1rem 2rem;
       border-radius: 4px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
+      gap: 3rem;
+
+      strong {
+        text-transform: uppercase;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+      }
     }
+    
+  }
+  .control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      button {
+        border: none;
+        background: ${props => props.theme["gray-100"]};
+        color: ${props => props.theme["gray-600"]};
+        padding: 0.2rem 0.5rem;
+        box-shadow: 0 0 5px ${props => props.theme["gray-500"]};
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      span {
+        text-transform: uppercase;
+      }
   }
 `

@@ -1,3 +1,5 @@
+import { ArrowLeft, ArrowRight } from "phosphor-react";
+import { ScheduleAdminCard } from "../../../components/ScheduleAdminCard";
 import { Span } from "../../Client/Result/styles";
 import { SchedulingContainer } from "./styles";
 
@@ -23,15 +25,29 @@ export function Scheduling(){
             <input type="date" min="2023-01-01" name="" id="" />
           </div>
         </div>
-
-        <div className="scheduleCard">
-          <Span statusColor="blue">Atendido</Span>
-          <h3>Misael Lopes</h3>
-          <span>006758522BA042</span>
-          <span>Expirado</span>
-          <button>Confirmar</button>
+        <div className="scheduleHeader">
+          <strong>Estado da marcação</strong>
+          <strong>Nome</strong>
+          <strong>Bilhete de Identidade</strong>
+          <strong>Motivo</strong>
+          <strong>Data</strong>
         </div>
+
+        <ScheduleAdminCard />
       </section>
+      <div className="control">
+          <button>
+            <ArrowLeft size={24} />
+          </button>
+          <span>
+            <strong>1 </strong>
+            de
+            <strong> 10</strong>
+            </span>
+          <button>
+            <ArrowRight size={24} />
+          </button>
+      </div>
     </SchedulingContainer>
   )
 }

@@ -1,21 +1,56 @@
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSearchContext } from "../../../contexts/SearchContext";
 import { ConsultContainer } from "./styles";
 
+export function validateString(inputStr: string): boolean {
+  const pattern = /^\d{9}[a-zA-Z]{2}\d{3}$/;
+  return pattern.test(inputStr);
+}
+export function validatePhoneNumber(inputStr: string): boolean {
+  const pattern = /^(92|93|94|91|99|95)\d{7}$/;
+  const validate = pattern.test(inputStr);
+  const number = !isNaN(Number(inputStr))
+  if (validate && number) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export function Consult() {
-
+  const navigate = useNavigate();
+  const [valid, setValid] = useState<string>('')
   const { consultData, setConsultData } = useSearchContext()
+  
 
-    function handleConsultState(event: any) {
-      event.preventDefault();
-      setConsultData(event.target.value)
+  function handleConsultState(event: any) {
+    event.preventDefault();
+    const data = event.target.value
+    setConsultData(data)
+  }
+  useEffect(() => {
+    const validateBI = validateString(consultData)
+    const validateNumber = validatePhoneNumber(consultData)
+    if (validateBI || validateNumber) {
+      setValid('Valido')
+    } else if (consultData === '') {
+      setValid('')
+    } else {
+      setValid('Invalido')
     }
+  }, [valid, consultData])
+
+  async function handleSubmit() {
+    
+    navigate('/consult/result', { replace: true });
+  }
 
     return (
         <ConsultContainer>
           <h1>Consultar atendimentos</h1>
 
-          <form action="/result" onSubmit={e => e.preventDefault()} method="get">
+          <form onSubmit={e => e.preventDefault()} method="get">
             <main>
               <strong>Formulário de consultas de agendamentos</strong>
               <input 
@@ -28,14 +63,16 @@ export function Consult() {
                 maxLength={14}
                 onChange={handleConsultState}
               />
+              <span style={{ color: `${valid === 'Valido' ? 'green' : 'red'}`}}>{valid}</span>
             </main>
             <footer>
-              <NavLink 
+              <button 
                 type="submit"
-                to={'result'}
+                onClick={handleSubmit}
+                disabled={valid === 'Invalido' || valid === '' && true}
               >
                 Consultar
-              </NavLink>
+              </button>
             </footer>
           </form>
         </ConsultContainer>

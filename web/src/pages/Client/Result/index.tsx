@@ -19,6 +19,7 @@ export interface ScheduleProps {
     }
 }
 
+
 export function Result() {
 
     const [scheduleData, setScheduleData] = useState<ScheduleProps[]>([])

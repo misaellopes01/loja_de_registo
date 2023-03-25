@@ -6,7 +6,8 @@ interface Props {
 }
 export function SearchProvider({ children }: Props) {
   const [consultData, setConsultData] = useState<string | number>('')
-    const contextValues = { consultData, setConsultData }
+  const [confirm, setConfirm] = useState<boolean>(false)
+    const contextValues = { consultData, setConsultData, confirm, setConfirm }
     return (
         <SearchContext.Provider value={contextValues}>
             {children}

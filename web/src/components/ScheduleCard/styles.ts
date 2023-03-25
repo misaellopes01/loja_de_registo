@@ -23,6 +23,10 @@ export const CardContainer = styled.div`
 
   em {
     font-style: normal;
+
+    > strong {
+      text-transform: capitalize;
+    }
   }
 
   button {

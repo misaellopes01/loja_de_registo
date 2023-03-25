@@ -39,6 +39,12 @@ export const ConsultContainer = styled.main`
         background: ${props => props.theme["gray-100"]};
         padding: 0.65625rem 1.3125rem;
       }
+      span{
+        margin-top: -1rem;
+        padding-left: 1rem;
+        text-transform: uppercase;
+        font-size: .75rem;
+      }
     }
     footer {
       width: 100%;
@@ -48,7 +54,7 @@ export const ConsultContainer = styled.main`
       justify-content: center;
       gap: 1rem;
       border-top: 1rem solid #fff;
-      a {
+      button {
         text-decoration: none;
         background: ${props => props.theme.green};
         padding: 0.8rem 6rem;
@@ -62,7 +68,7 @@ export const ConsultContainer = styled.main`
 
         &:disabled {
           cursor: not-allowed;
-          background: ${props => props.theme["green-card"]};
+          background: ${props => props.theme["gray-500"]};
         }
       }
     }

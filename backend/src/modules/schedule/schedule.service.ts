@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { SchedulingState } from './enum/schedule.enum';
@@ -73,11 +73,15 @@ export class ScheduleService {
           },
         },
       },
+      orderBy: [
+        {
+          created_at: 'desc',
+        },
+      ],
     });
     // Add citizen data: Done
     return appointments;
   }
-  j;
 
   async findOne(id: string) {
     const appointment = await this.prisma.scheduling.findUnique({
@@ -105,6 +109,22 @@ export class ScheduleService {
   }
 
   async findManyByCitizen(bi_phone: string | number) {
+    const verifyExistingData = await this.prisma.citizen.findMany({
+      where: {
+        OR: [
+          {
+            bi: String(bi_phone),
+          },
+          {
+            phone: !isNaN(Number(bi_phone)) ? Number(bi_phone) : 0,
+          },
+        ],
+      },
+    });
+    if (!verifyExistingData[0]) {
+      throw new NotFoundException('No Data Found');
+    }
+
     const appointment = await this.prisma.citizen.findMany({
       where: {
         OR: [
@@ -134,6 +154,11 @@ export class ScheduleService {
               },
             },
           },
+          orderBy: [
+            {
+              created_at: 'desc',
+            },
+          ],
         },
       },
     });
@@ -169,6 +194,7 @@ export class ScheduleService {
         scheduling_date: {
           lt: currentDate,
         },
+        AND: [{ scheduling_state: 'PENDING' }],
       },
     });
   }

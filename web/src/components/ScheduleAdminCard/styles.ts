@@ -19,6 +19,11 @@ export const ScheduleAdminCardContainer = styled.div`
         color: ${props => props.theme.white};
         text-transform: uppercase;
         border-radius: 4px;
+
+        &:disabled {
+          background: ${props => props.theme["gray-500"]};
+          cursor: not-allowed;
+        }
       }
       span {
         font-weight: 300;
@@ -27,6 +32,9 @@ export const ScheduleAdminCardContainer = styled.div`
           flex-direction: column;
           gap: 0.3rem;
           font-weight: 400;
+        }
+        &:nth-child(1) {
+          font-size: 0.75rem;
         }
       }
       em {

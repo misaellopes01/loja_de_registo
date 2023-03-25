@@ -76,16 +76,31 @@ export const ScheduleContainer = styled.main`
             font-size: 0.875rem;
           }
       }
+      .bi {
+        display: flex;
+        align-items: center;
+        span {
+          text-transform: uppercase;
+          padding-top: 1rem;
+          font-size: 0.75rem;
+        }
+      }
       input {
         border: none;
         background: ${props => props.theme["gray-100"]};
         padding: 0.65625rem 1.3125rem;
+        &:disabled {
+          background: ${props => props.theme["gray-300"]};
+        }
       }
       select {
         border: none;
         background: ${props => props.theme["gray-100"]};
         padding: 0.59rem 1.3rem;
         font-family: 'Roboto', sans-serif;
+        &:disabled {
+          background: ${props => props.theme["gray-300"]};
+        }
       }
       #bi {
         width: 12.5rem;
@@ -113,7 +128,7 @@ export const ScheduleContainer = styled.main`
 
       a {
         background: ${props => props.theme["gray-100"]};
-        color: ${props => props.theme["gray-500"]};
+        color: ${props => props.theme["gray-600"]};
         padding: 1.2rem 6.5rem;
         border-radius: 4px;
         text-decoration: none;
@@ -128,8 +143,14 @@ export const ScheduleContainer = styled.main`
         font-size: 0.875rem;
         text-transform: uppercase;
         font-weight: 700;
-        color: ${props => props.theme["gray-500"]};
+        color: ${props => props.theme["gray-600"]};
         cursor: pointer;
+
+        &:disabled {
+          background: ${props => props.theme["gray-600"]};
+          color: ${props => props.theme["gray-500"]};
+          cursor: not-allowed;
+        }
       }
     }
   }

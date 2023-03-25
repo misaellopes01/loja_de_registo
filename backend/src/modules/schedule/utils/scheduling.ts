@@ -12,7 +12,7 @@ export class AppointmentScheduler {
     const nextDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
-      currentDate.getDate() + 6,
+      currentDate.getDate() + 1,
     );
 
     while (nextDate.getDay() === 0 || nextDate.getDay() === 6) {
@@ -30,7 +30,7 @@ export class AppointmentScheduler {
         );
       });
 
-      if (appointmentsOnNextDate.length < 10) {
+      if (appointmentsOnNextDate.length < 50) {
         scheduled = true;
         return nextDate;
       } else {

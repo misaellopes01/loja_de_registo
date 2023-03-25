@@ -5,6 +5,7 @@ import { DefaultLayout } from './layouts/DefaultLayout'
 import { Dashboard } from './pages/Admin/Dashboard'
 import { Scheduling } from './pages/Admin/Scheduling'
 import { Consult } from './pages/Client/Consult'
+import { DoneMessage } from './pages/Client/DoneMessage'
 import { Home } from './pages/Client/Home'
 import { Result } from './pages/Client/Result'
 import { Schedule } from './pages/Client/Schedule'
@@ -19,6 +20,7 @@ export function Router() {
                     <Route path='/schedule' element={<Schedule />} />
                     <Route path='/consult' element={<Consult />} />   
                     <Route path='/consult/result' element={<Result />} />
+                    <Route path='/schedule/done' element={<DoneMessage />} />
                 </Route>
                 <Route path='/admin' element={<AdminLayout />}>
                     <Route path='/admin' element={<Dashboard />} />

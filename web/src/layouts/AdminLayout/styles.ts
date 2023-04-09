@@ -38,7 +38,10 @@ export const AdminContainer = styled.div`
                 border-radius: 50%;
                 background: ${props => props.theme["gray-100"]};
             }
-            a {
+            button {
+                background: transparent;
+                border: none;
+                outline-style: none;
                 display: flex;
                 align-items: center;
                 text-decoration: none;

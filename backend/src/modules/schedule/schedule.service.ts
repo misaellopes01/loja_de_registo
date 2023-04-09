@@ -198,4 +198,25 @@ export class ScheduleService {
       },
     });
   }
+
+  async report() {
+    const total = await this.prisma.scheduling.findMany();
+
+    const confirmed = total.filter(
+      (item) => item.scheduling_state === SchedulingState.CONFIRMED,
+    );
+    const pending = total.filter(
+      (item) => item.scheduling_state === SchedulingState.PENDING,
+    );
+    const expired = total.filter(
+      (item) => item.scheduling_state === SchedulingState.EXPIRED,
+    );
+
+    return {
+      total: total.length,
+      confirmed: confirmed.length,
+      pending: pending.length,
+      expired: expired.length,
+    };
+  }
 }

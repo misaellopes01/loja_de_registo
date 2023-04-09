@@ -9,24 +9,29 @@ import { DoneMessage } from './pages/Client/DoneMessage'
 import { Home } from './pages/Client/Home'
 import { Result } from './pages/Client/Result'
 import { Schedule } from './pages/Client/Schedule'
+import { Login } from './pages/Admin/Login'
+import { AuthProvider } from './contexts/Auth'
 
 
 export function Router() {
     return (
-        <SearchProvider>
-            <Routes>
-                <Route path='/' element={<DefaultLayout />}>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/schedule' element={<Schedule />} />
-                    <Route path='/consult' element={<Consult />} />   
-                    <Route path='/consult/result' element={<Result />} />
-                    <Route path='/schedule/done' element={<DoneMessage />} />
-                </Route>
-                <Route path='/admin' element={<AdminLayout />}>
-                    <Route path='/admin' element={<Dashboard />} />
-                    <Route path='/admin/scheduling' element={<Scheduling />} />
-                </Route>
-            </Routes>
-        </SearchProvider>
+            <SearchProvider>
+            <AuthProvider>
+                <Routes>
+                    <Route path='/' element={<DefaultLayout />}>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/schedule' element={<Schedule />} />
+                        <Route path='/consult' element={<Consult />} />   
+                        <Route path='/consult/result' element={<Result />} />
+                        <Route path='/schedule/done' element={<DoneMessage />} />
+                    </Route>
+                    <Route path='/admin' element={<AdminLayout />}>
+                        <Route path='/admin' element={<Dashboard />} />
+                        <Route path='/admin/scheduling' element={<Scheduling />} />
+                    </Route>
+                    <Route path='/login' element={<Login />} />
+                </Routes>
+            </AuthProvider>
+            </SearchProvider>
     )
 }

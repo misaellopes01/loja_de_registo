@@ -30,6 +30,11 @@ export class ScheduleController {
     return this.scheduleService.findAll();
   }
 
+  @Get('report')
+  async findAllReport() {
+    return this.scheduleService.report();
+  }
+
   @Get('find/:id')
   async findOne(@Param('id') id: string) {
     return this.scheduleService.findOne(id);

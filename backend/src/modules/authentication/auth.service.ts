@@ -90,9 +90,6 @@ export class AuthService {
 
   }
 
-
-
-
   async logout(user_id: string) {
     await this.prisma.user.updateMany({
       data: {

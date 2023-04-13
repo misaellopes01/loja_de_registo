@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { api } from "../../../lib/api";
 import { ScheduleContainer } from "./styles";
+import { validatePhoneNumber, validateBI } from "../../../utils/validation";
+
 export enum StateBI {
   EXPIRED = 'EXPIRED',
   BAD_CONSERVATION = 'BAD_CONSERVATION',
@@ -28,6 +30,7 @@ export function Schedule() {
     const [BIState, setBIState] = useState<string>('Estado do Bilhete')
     const [govSystemState, setGovSystemState] = useState<string>('')
     const [schedule, setSchedule] = useState<CreateScheduleDto>()
+    const [allowButton, setAllowButton] = useState<boolean>(false)
     const navigate = useNavigate();
 
     function handleIfNew() {
@@ -45,26 +48,12 @@ export function Schedule() {
     function handleBIState(event: any) {
       setBIState(event.target.value) 
     }
-
+    
     async function handleSubmit() {
       const response = await api.post('/schedule/create', schedule)
       navigate('/schedule/done', { replace: true });
     }
-    
 
-    useEffect(() => {
-      function handleSchedule() {
-        setSchedule({
-          name,
-          phone,
-          bi: BINumber || 'Tratar novo',
-          bi_situation: BIState || StateBI.NEW,
-          bi_gv_system_situation: govSystemState === 'notInfo' ? 'Inexistente' : govSystemState
-        })   
-      }
-      handleSchedule()
-    }, [BINumber, govSystemState, name, phone, BIState])
-    
     useEffect(() => {
       async function getResponseFromGov() {
         const response = await axios.post('https://bi-bs.minjusdh.gov.ao/pims-backend/api/v1/progress', 
@@ -78,7 +67,30 @@ export function Schedule() {
       getResponseFromGov()
     }, [BINumber, govSystemState])
 
-    const validation = govSystemState === 'notInfo' ? 'Inválido' : 'Válido'
+    const validation = govSystemState === 'notInfo' ? false : true
+
+    useEffect(() => {
+      function verifyData() {
+        if (ifNew === 1 && validatePhoneNumber(String(phone)) && name.length >= 10) {
+          setAllowButton(true)
+        } else if(ifNew === 0 && validatePhoneNumber(String(phone)) && name.length >= 10 && validateBI(BINumber) && validation && (BIState !== 'Estado do Bilhete')) {
+          setAllowButton(true)
+        } else (
+          setAllowButton(false)
+        )
+      }
+      function handleSchedule() {
+        setSchedule({
+          name,
+          phone,
+          bi: BINumber || 'Tratar novo',
+          bi_situation: BIState || StateBI.NEW,
+          bi_gv_system_situation: govSystemState === 'notInfo' ? 'Inexistente' : govSystemState
+        })   
+      }
+      verifyData()
+      handleSchedule()
+    }, [BINumber, govSystemState, name, phone, BIState, validation, ifNew])
 
     return (
         <ScheduleContainer>
@@ -94,7 +106,7 @@ export function Schedule() {
               </div>
               <div className="bi">
               <input type="text" name="" id="bi" onChange={handleBINumber} placeholder="Número do BI" disabled={ifNew === 1} />
-              <span>{validation}</span>
+              <span style={ validation === true ? {color: 'green'} : {color: 'red'}}>{validation === true ? 'Valido' : 'Invalido'}</span>
               </div>
               <input type="text" name="" id="name" onChange={handleName} placeholder="Nome completo" />
               <div className="last">
@@ -112,7 +124,7 @@ export function Schedule() {
             <footer>
               <NavLink to='/'>Cancelar</NavLink>
               <button 
-                disabled={(validation === 'Inválido' && ifNew===0) && true}
+                disabled={!allowButton}
                 onClick={handleSubmit}
               >
                 Enviar

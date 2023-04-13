@@ -8,6 +8,18 @@ import { StateBI } from "../../pages/Client/Schedule";
 import { ScheduleProps } from "../ScheduleCard";
 import { ScheduleAdminCardContainer } from "./styles";
 
+export function translateState(state: string){
+  switch (state) {
+    case 'PENDING':
+      return 'Pendente'
+    case 'CONFIRMED':
+      return 'Atendido'
+    case 'EXPIRED':
+      return 'Cancelado'
+    default:
+      break;
+  }
+}
 
 export function ScheduleAdminCard({ schedule }: ScheduleProps){
   const [httpRes, setHttpRes] = useState<number>(0)
@@ -30,18 +42,7 @@ export function ScheduleAdminCard({ schedule }: ScheduleProps){
         break;
     }
   }
-  function translateState(state: string){
-    switch (state) {
-      case 'PENDING':
-        return 'Pendente'
-      case 'CONFIRMED':
-        return 'Atendido'
-      case 'EXPIRED':
-        return 'Cancelado'
-      default:
-        break;
-    }
-  }
+  
 
   async function handleSubmit() {
     setHttpRes(1)

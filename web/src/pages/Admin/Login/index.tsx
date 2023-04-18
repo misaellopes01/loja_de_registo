@@ -27,7 +27,7 @@ export function Login() {
         <h2>Administrador</h2>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Digite o seu email"
           value={email}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)

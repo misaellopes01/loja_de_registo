@@ -74,7 +74,7 @@ export function Schedule() {
         } else if(ifNew === 0 && validatePhoneNumber(String(phone)) && name.length >= 10 && validateBI(BINumber) && validation && (BIState !== 'Estado do Bilhete')) {
           setAllowButton(true)
         } else (
-          setAllowButton(false)
+          setAllowButton(false) 
         )
       }
       function handleSchedule() {

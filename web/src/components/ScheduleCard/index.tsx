@@ -56,7 +56,7 @@ export function ScheduleCard({ schedule }: ScheduleProps) {
   const generatePdf = () => {
     const doc = new jsPDF();
     doc.setFontSize(18);
-    doc.setTextColor('#ff004c');
+    doc.setTextColor('#000');
     doc.text('COMPROVATIVO DE AGENDAMENTO', 50, 20);
     // Adding schedule details
     doc.setFontSize(12);
@@ -77,7 +77,7 @@ export function ScheduleCard({ schedule }: ScheduleProps) {
     doc.text(schedule.bi_gv_system_situation, 120, 80);
   
     // Adding citizen details
-    doc.setTextColor('#ff004c');
+    doc.setTextColor('#000');
     doc.setFontSize(14);
     doc.text('INFORMAÇÃO ADICIONAL', 80, 100);
     doc.setTextColor('#121214');
@@ -102,7 +102,6 @@ export function ScheduleCard({ schedule }: ScheduleProps) {
         doc.addImage(url, 'PNG', qrCodeX, qrCodeY, qrCodeSize, qrCodeSize);
       }
     }); 
-    // Adding schedule details
     doc.setFontSize(10);
     doc.setTextColor('#000000');
     doc.text('---------------------------------------------------------------------------------------------------------', 80, doc.internal.pageSize.height - 15);

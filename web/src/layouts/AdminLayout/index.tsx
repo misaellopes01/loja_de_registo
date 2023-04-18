@@ -25,7 +25,8 @@ export function AdminLayout() {
                 <Outlet />
             </section>
            <footer>
-            
+                <p>Loja de Registo - Lobito. &copy; Todos Direitos Reservados </p>
+                <p>Ministério da Justiça e Direitos Humanos – MINJUSDH</p>
            </footer>
         </AdminContainer>
     )

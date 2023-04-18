@@ -48,6 +48,7 @@ export const AdminContainer = styled.div`
                 color: ${props => props.theme["gray-100"]};
                 font-family: 'Baloo 2', sans-serif;
                 gap: .5rem;
+                cursor: pointer;
             }
         }
     }
@@ -85,7 +86,12 @@ export const AdminContainer = styled.div`
         }
     }
     footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         background: ${props => props.theme["gray-700"]};
         height: 6rem;
+        color: ${props => props.theme["gray-400"]};
     }
 `

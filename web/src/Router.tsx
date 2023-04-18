@@ -10,10 +10,15 @@ import { Home } from './pages/Client/Home'
 import { Result } from './pages/Client/Result'
 import { Schedule } from './pages/Client/Schedule'
 import { Login } from './pages/Admin/Login'
-import { AuthProvider } from './contexts/Auth'
+import { AuthContext, AuthProvider } from './contexts/Auth'
+import { useContext } from 'react'
+import { Handle } from './pages/Admin/Login/handle'
 
 
 export function Router() {
+
+    const { userInfo } = useContext(AuthContext)
+
     return (
             <SearchProvider>
             <AuthProvider>
@@ -25,9 +30,10 @@ export function Router() {
                         <Route path='/consult/result' element={<Result />} />
                         <Route path='/schedule/done' element={<DoneMessage />} />
                     </Route>
-                    <Route path='/admin' element={<AdminLayout />}>
-                        <Route path='/admin' element={<Dashboard />} />
-                        <Route path='/admin/scheduling' element={<Scheduling />} />
+                    <Route path='/handle' element={<Handle />} />
+                    <Route path='/admin' element={userInfo ? <AdminLayout /> : <Handle />}>
+                        <Route path='/admin' element={userInfo ? <Dashboard /> : <Handle />} />
+                        <Route path='/admin/scheduling' element={userInfo ? <Scheduling /> : <Handle />} />
                     </Route>
                     <Route path='/login' element={<Login />} />
                 </Routes>

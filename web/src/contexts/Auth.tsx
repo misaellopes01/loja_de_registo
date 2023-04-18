@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../lib/api";
 
 type User = {
-  id: string
+    id: string
 	email: string
 	name: string
 	role: string
@@ -16,8 +16,6 @@ interface AuthContextData {
     signOut: () => void
     signIn: (email: string, password: string) => void
 }
-
-
 
 export const AuthContext = createContext({} as AuthContextData)
 
@@ -50,7 +48,7 @@ export function AuthProvider(props: AuthProvider) {
             password
         })
 
-        const { access_token, refresh_token } = response.data
+        const { access_token } = response.data
         localStorage.setItem('@lj_register:token', access_token)
 
         api.defaults.headers.common.authorization = `Bearer ${access_token}`

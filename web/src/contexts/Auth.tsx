@@ -42,7 +42,7 @@ export function AuthProvider(props: AuthProvider) {
     const [userInfo, setUser] = useState<User | null>(null)
 
 
-    async function signIn(email: string, password: string) {
+    const signIn = async (email: string, password: string) => {
         const response = await api.post<AuthResponse>('/auth/signin', {
             email,
             password
@@ -54,15 +54,16 @@ export function AuthProvider(props: AuthProvider) {
         api.defaults.headers.common.authorization = `Bearer ${access_token}`
         const userData = await api.get<UserResponse>('/user/me')
         const user = userData.data
-        console.log(user)
+        
 
         const userJSON = JSON.stringify(user)
 
         localStorage.setItem('@lj_register:user', userJSON)
         setUser(user)
-        window.location.href = '/admin'
+        setTimeout(()=> {
+            window.location.href = '/admin'
+        }, 1000)
     }
-
 
     function signOut() {
         setUser(null)

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { SearchProvider } from './contexts/SearchContext'
 import { AdminLayout } from './layouts/AdminLayout'
 import { DefaultLayout } from './layouts/DefaultLayout'
@@ -13,15 +13,15 @@ import { Login } from './pages/Admin/Login'
 import { AuthContext, AuthProvider } from './contexts/Auth'
 import { useContext } from 'react'
 import { Handle } from './pages/Admin/Login/handle'
+import { PrivateRoute } from './PrivateRoute'
 
 
 export function Router() {
 
-    const { userInfo } = useContext(AuthContext)
+    const token = localStorage.getItem('@lj_register:token')
 
     return (
-            <SearchProvider>
-            <AuthProvider>
+            <SearchProvider>     
                 <Routes>
                     <Route path='/' element={<DefaultLayout />}>
                         <Route path='/' element={<Home />} />
@@ -30,14 +30,14 @@ export function Router() {
                         <Route path='/consult/result' element={<Result />} />
                         <Route path='/schedule/done' element={<DoneMessage />} />
                     </Route>
-                    <Route path='/handle' element={<Handle />} />
-                    <Route path='/admin' element={userInfo ? <AdminLayout /> : <Handle />}>
-                        <Route path='/admin' element={userInfo ? <Dashboard /> : <Handle />} />
-                        <Route path='/admin/scheduling' element={userInfo ? <Scheduling /> : <Handle />} />
+                    
+                    <Route path='/admin' element={token ? <AdminLayout /> : <Navigate to="/login" replace />} >
+                        <Route path='/admin' element={token ? <Dashboard /> : <Navigate to="/login" replace />} />
+                        <Route path='/admin/scheduling' element={token ? <Scheduling /> : <Navigate to="/login" replace />} />
                     </Route>
+
                     <Route path='/login' element={<Login />} />
                 </Routes>
-            </AuthProvider>
             </SearchProvider>
     )
 }

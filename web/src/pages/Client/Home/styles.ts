@@ -85,6 +85,14 @@ export const HomeContainer = styled.main`
             width: 40%;
         }
     }
+    @media screen and (max-width: 400px) {
+        .banner {
+            img {
+                display: none;
+            }
+            padding-bottom: 2rem;
+        }
+    }
     .about {
         width: 100%;
         height: 100%;
@@ -164,6 +172,58 @@ export const HomeContainer = styled.main`
         }
        
     }
+    @media screen and (max-width: 400px) {
+        .about {
+            img {
+                display: none;
+            }
+            .content {
+                .upper {
+                    h3 {
+                        padding: 0;
+                        font-size: 1.5rem;
+                        width: fit-content;
+                        text-align: center;
+                        margin: 0 auto;
+                    }
+                    > div {
+                        div {
+                            padding: 1rem;
+                            strong {
+                                padding: 0;
+                                margin: 0;
+                                text-align: center;
+                            }
+                            p {
+                                padding: 2rem 0;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+                .down {
+                    > div {
+                            padding: 0 1rem;
+                            strong {
+                                padding: 0;
+                                margin: 0;
+                                text-align: center;
+                            }
+                            p {
+                                padding: 0;
+                                text-align: center;
+                            }
+                            ul {
+                                line-height: 1.5;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 0.5rem;
+                            }
+                    }
+                }
+            }
+        }
+    }
     .taxes {
         max-width: 70rem;
         height: 100%;
@@ -187,6 +247,29 @@ export const HomeContainer = styled.main`
                 font-size: 1.2rem;
                 font-weight: bold;
                 line-height: 1.4;
+            }
+        }
+    }
+    @media screen and (max-width: 400px) {
+        .taxes {
+            h3 {
+                font-size: 1.5rem;
+                width: 100%;
+                text-align: center;
+                padding: 2rem 0;
+            }
+            div {
+                img {
+                    display: none;
+                }
+                padding: 0 1rem 2rem 1rem;
+                p {
+                    color: ${props => props.theme["gray-600"]};
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    line-height: 1.4;
+                    text-align: center;
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 import { HeaderContainer } from "./styles";
-import { Timer } from 'phosphor-react'
+import { Hamburger, List, Timer } from 'phosphor-react'
 
 import logo from '../../assets/logo.svg'
 import { NavLink } from "react-router-dom";
@@ -17,7 +17,9 @@ export function Header() {
     return (
         <HeaderContainer>
             <img src={logo} alt="" />
-            <button onClick={handleToggle}>Menu</button>
+            <button onClick={handleToggle}>
+                <List size={28} />
+            </button>
             <nav>
                <NavLink to='/'>Início</NavLink>
                <NavLink to='/consult'>Consultar</NavLink>

@@ -67,6 +67,10 @@ export const HeaderContainer = styled.header`
         button {
             display: flex;
             padding: .5rem;
+            outline-style: none;
+            border-style: none;
+            background: ${props => props.theme.yellow};
+            border-radius: 8px;
         }
         .toggle {
             position: absolute;

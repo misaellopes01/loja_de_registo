@@ -33,9 +33,15 @@ export const ResultContainer = styled.main`
     flex-direction: column;
     padding-bottom: 2rem;
     gap: 2rem;
-
-      
   }
+  @media screen and (max-width: 400px) {
+      .colors {
+        padding: 0 1rem;
+        max-width: 90%;
+        width: 90%;
+        padding: .75rem 0;
+      }
+    }
 `
   const STATUS_COLOR = {
     blue: 'blue',
@@ -63,6 +69,7 @@ export const ResultContainer = styled.main`
       margin-right: .5rem;
       border-radius: 50%;
     }
-
-    
+    @media screen and (max-width: 400px) {
+      font-size: .875rem;
+    }    
 `

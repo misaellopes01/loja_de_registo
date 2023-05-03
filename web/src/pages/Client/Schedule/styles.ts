@@ -154,4 +154,36 @@ export const ScheduleContainer = styled.main`
       }
     }
   }
+
+  @media screen and (max-width: 400px) {
+    form {
+      width: 90%;
+     
+      main {
+        display: inline-flex;
+        height: 23.125rem;
+        padding: 2rem;
+        gap: 1rem;
+
+        .last {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+
+      footer {
+        flex-direction: column;
+        a {
+          padding: 1rem 6rem;
+          border-radius: 4px;
+          text-decoration: none;
+          text-transform: uppercase;
+          font-size: 0.875rem;
+        }
+        button {
+          padding: 1rem 6.7rem;
+        }
+      }
+    }
+  }
 `

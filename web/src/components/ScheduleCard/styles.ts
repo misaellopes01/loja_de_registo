@@ -47,4 +47,12 @@ export const CardContainer = styled.div`
       border: 1px solid ${props => props.theme["gray-500"]};
     }
   }
+
+  @media screen and (max-width: 400px) {
+      width: 100%;
+      padding: 2rem 1rem;
+      margin: 0 auto;
+      flex-direction: column;
+      gap: 1rem;
+    }
 `

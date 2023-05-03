@@ -72,5 +72,17 @@ export const ConsultContainer = styled.main`
         }
       }
     }
-  }
+    }
+
+    @media screen and (max-width: 400px) {
+      form {
+        width: 90%;
+
+        main {
+          strong {
+           line-height: 1;
+          }
+        }
+      }
+    }
 `

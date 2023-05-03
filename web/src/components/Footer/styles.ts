@@ -11,8 +11,10 @@ export const FooterContainer = styled.footer`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    padding: 0 2rem;
     padding-bottom: 2rem;
     margin: 0 auto;
+    text-align: center;
     
     section {
       width: 100%;

@@ -29,7 +29,7 @@ export function Result() {
       async function getSchedules() {
         try {
           const response = await api.post('/schedule/citizen/many', { bi_phone: consultData })
-          console.log(consultData)
+          
           setScheduleData(response.data)
         }
         catch (error) {
@@ -37,8 +37,8 @@ export function Result() {
         }
       }
       getSchedules() 
-    }, [consultData])
-
+    }, [])
+    console.log(scheduleData)
     return (
         <ResultContainer>
           <h1>Resultados de agendamentos</h1>

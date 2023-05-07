@@ -40,6 +40,10 @@ export function Scheduling(){
       setConfirm(false)
     }, [confirm])
 
+    useEffect(() => {
+      
+    }, [])
+
   return(
     <SchedulingContainer>
       <h1>Agendamentos</h1>

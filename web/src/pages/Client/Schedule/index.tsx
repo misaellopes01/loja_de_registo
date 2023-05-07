@@ -70,7 +70,9 @@ export function Schedule() {
     useEffect(() => {
       function verifyData() {
         if (ifNew === 1 && validatePhoneNumber(String(phone)) && name.length >= 10) {
-          setBIState('Estado do Bilhete')  
+          setBIState('')
+          setBINumber('')
+          setAllowButton(true)  
         } else if(ifNew === 0 && validatePhoneNumber(String(phone)) && name.length >= 10 && validateBI(BINumber) && validation && (BIState !== 'Estado do Bilhete')) {
           setAllowButton(true)
         } else (

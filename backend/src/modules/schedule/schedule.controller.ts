@@ -48,8 +48,7 @@ export class ScheduleController {
     const citizenScheduling = await this.scheduleService.findManyByCitizen(
       bi_phone,
     );
-
-    return citizenScheduling[0].Scheduling;
+    return citizenScheduling;
   }
 
   @Patch('update/:id')

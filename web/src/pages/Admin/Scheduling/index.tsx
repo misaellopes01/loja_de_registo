@@ -24,6 +24,8 @@ export interface ScheduleProps {
 export function Scheduling(){
 
   const [scheduleData, setScheduleData] = useState<ScheduleProps[]>([])
+  // const [filteredScheduleData, setFilteredScheduleData] = useState<ScheduleProps[]>([])
+  const [search, setSearch] = useState<string>('')
   const { confirm, setConfirm } = useSearchContext()
 
     useEffect(() => {
@@ -40,9 +42,7 @@ export function Scheduling(){
       setConfirm(false)
     }, [confirm])
 
-    useEffect(() => {
-      
-    }, [])
+    const filteredScheduleData = search.length > 0 ? scheduleData.filter(schedule => schedule.scheduling_state === search || schedule.citizen.name === search || schedule.citizen.phone === Number(search) || schedule.citizen.bi === search || new Date(schedule.scheduling_date).toLocaleDateString("en-US") === new Date(search).toLocaleDateString("en-US")) : []
 
   return(
     <SchedulingContainer>
@@ -51,16 +51,16 @@ export function Scheduling(){
         <div className="search">
           <h2>Filtros</h2>
           <div className="contentForm">
-            <select id="scheduleState" name="scheduleState">
+            <select id="scheduleState" onChange={(e: any) => setSearch(e.target.value)} name="scheduleState">
                     <option value="">Selecionar Estado</option>
-                    <option value="pending">Pendente</option>
-                    <option value="confirmed">Atendido</option>
-                    <option value="canceled">Cancelado</option>
+                    <option value="PENDING">Pendente</option>
+                    <option value="CONFIRMED">Atendido</option>
+                    <option value="EXPIRED">Cancelado</option>
             </select>
             <em>ou</em>
-            <input type="text" placeholder="Bilhete / Número / Nome" />
+            <input type="text" value={search} onChange={(e: any) => setSearch(e.target.value)} placeholder="Bilhete / Número / Nome" />
             <em>ou</em>
-            <input type="date" min="2023-01-01" name="" id="" />
+            <input type="date" value={search} onChange={(e: any) => setSearch(e.target.value)} min="2023-01-01" name="" id="" />
           </div>
         </div>
         <div className="scheduleHeader">
@@ -71,9 +71,15 @@ export function Scheduling(){
           <strong>Data</strong>
         </div>
 
-        {scheduleData.map((item) => (
-          <ScheduleAdminCard key={item.id} schedule={item} />
-        ))}
+        {search.length > 0 ? (
+          filteredScheduleData.map((item) => (
+            <ScheduleAdminCard key={item.id} schedule={item} />
+          ))
+        ) : (
+          scheduleData.map((item) => (
+            <ScheduleAdminCard key={item.id} schedule={item} />
+          ))
+        )}
       </section>
       <div className="control">
           <button>

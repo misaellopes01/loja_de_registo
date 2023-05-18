@@ -10,10 +10,6 @@ import { Home } from './pages/Client/Home'
 import { Result } from './pages/Client/Result'
 import { Schedule } from './pages/Client/Schedule'
 import { Login } from './pages/Admin/Login'
-import { AuthContext, AuthProvider } from './contexts/Auth'
-import { useContext } from 'react'
-import { Handle } from './pages/Admin/Login/handle'
-import { PrivateRoute } from './PrivateRoute'
 
 
 export function Router() {

@@ -23,11 +23,13 @@ interface CreateScheduleDto {
 
 
 export function Schedule() {
+  
     const [ifNew, setIfNew] = useState<number>(0)
     const [BINumber, setBINumber] = useState<string>('')
     const [name, setName] = useState<string>('')
     const [phone, setPhone] = useState<number>(0)
     const [BIState, setBIState] = useState<string>('Estado do Bilhete')
+
     const [govSystemState, setGovSystemState] = useState<string>('')
     const [schedule, setSchedule] = useState<CreateScheduleDto>()
     const [allowButton, setAllowButton] = useState<boolean>(false)

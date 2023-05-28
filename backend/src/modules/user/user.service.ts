@@ -69,7 +69,6 @@ export class UserService {
       if (!passwordMatch) {
         throw new ForbiddenException('Password does not match!');
       }
-
       const hashedPassword = await argon.hash(data.new_password);
       await this.prisma.user.update({
         data: {
@@ -80,10 +79,9 @@ export class UserService {
         },
       });
     }
-
     await this.prisma.user.update({
       data: {
-        name: data.name,
+        name: data.name ?? user.name,
       },
       where: {
         id,

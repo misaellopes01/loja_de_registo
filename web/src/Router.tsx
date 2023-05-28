@@ -10,6 +10,7 @@ import { Home } from './pages/Client/Home'
 import { Result } from './pages/Client/Result'
 import { Schedule } from './pages/Client/Schedule'
 import { Login } from './pages/Admin/Login'
+import { Settings } from './pages/Admin/Settings'
 
 
 export function Router() {
@@ -30,6 +31,7 @@ export function Router() {
                     <Route path='/admin' element={token ? <AdminLayout /> : <Navigate to="/login" replace />} >
                         <Route path='/admin' element={token ? <Dashboard /> : <Navigate to="/login" replace />} />
                         <Route path='/admin/scheduling' element={token ? <Scheduling /> : <Navigate to="/login" replace />} />
+                        <Route path='/admin/settings'  element={token ? <Settings /> : <Navigate to='/login' replace/> }/>
                     </Route>
 
                     <Route path='/login' element={<Login />} />

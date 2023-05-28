@@ -29,10 +29,12 @@ export function Schedule() {
     const [name, setName] = useState<string>('')
     const [phone, setPhone] = useState<number>(0)
     const [BIState, setBIState] = useState<string>('Estado do Bilhete')
-
     const [govSystemState, setGovSystemState] = useState<string>('')
     const [schedule, setSchedule] = useState<CreateScheduleDto>()
     const [allowButton, setAllowButton] = useState<boolean>(false)
+    const [countLimit, setCountLimit] = useState<number>(0)
+    const [countCitizenLimit, setCountCitizenLimit] = useState<number>(0)
+
     const navigate = useNavigate();
 
     function handleIfNew() {
@@ -94,12 +96,27 @@ export function Schedule() {
       
       handleSchedule()
     }, [BINumber, govSystemState, name, phone, BIState, validation, ifNew])
+    useEffect(() => {
+      async function verifyIfFillTheSchedulingLimit() {
+        const response = await api.get('/schedule/count/all')
+        setCountLimit(response.data)
+      }
+      verifyIfFillTheSchedulingLimit()
+    }, [])
 
+    async function verifyIfFillTheCitizenLimit() {
+      const response = await api.post('/schedule/citizen/scheduling/limit', { phone: phone })
+      setCountCitizenLimit(response.data)
+    }
+    phone.toString().length === 9 && verifyIfFillTheCitizenLimit()
+    const citizenLimitCondition = countCitizenLimit >= 2
+  
     return (
         <ScheduleContainer>
           <h1>Agendar atendimento</h1>
-
-          <form onSubmit={e => e.preventDefault()} method="get">
+          { countLimit >= 50 ? <span className="exceedLimit">O sistema atingiu o limite de agendamentos para o dia seguinte, que é 50.
+            <br/><strong><em>Tente novamente amanhã!</em></strong>
+          </span> :  <form onSubmit={e => e.preventDefault()} method="get">
             <main>
               <strong>Formulário de Agendamento</strong>
               <span>Preencha os campos</span>
@@ -123,17 +140,19 @@ export function Schedule() {
                   <option value={StateBI.ENDORSEMENT}>Averbamento</option>
                 </select>
               </div>
+              {citizenLimitCondition && <span style={{color: 'red'}}>Já tem dois agendamentos reservados, 2 por dia é o limite!</span>}
             </main>
             <footer>
               <NavLink to='/'>Cancelar</NavLink>
               <button 
-                disabled={!allowButton}
+                disabled={!allowButton || citizenLimitCondition}
                 onClick={handleSubmit}
               >
                 Enviar
               </button>
             </footer>
-          </form>
+          </form> }
+          
         </ScheduleContainer>
     )
 }

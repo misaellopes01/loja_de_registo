@@ -13,6 +13,12 @@ export const ScheduleContainer = styled.main`
       font-size: 2.5rem;
       color: ${props => props.theme["gray-800"]};
     }
+    .exceedLimit {
+      margin: 0 auto;
+      text-align: center;
+      line-height: 2;
+      font-size: 1.2rem;
+    }
 
     form {
       margin: 0 auto;
@@ -24,7 +30,7 @@ export const ScheduleContainer = styled.main`
       flex-direction: column;
 
     main {
-        height: 23.125rem;
+        height: 24rem;
         padding: 2.5rem;
         display: flex;
         flex-direction: column;

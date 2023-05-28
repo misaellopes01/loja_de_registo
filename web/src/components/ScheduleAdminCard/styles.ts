@@ -19,10 +19,15 @@ export const ScheduleAdminCardContainer = styled.div`
         color: ${props => props.theme.white};
         text-transform: uppercase;
         border-radius: 4px;
+        transition: color .2s, background-color .2s;
 
         &:disabled {
           background: ${props => props.theme["gray-500"]};
           cursor: not-allowed;
+        }
+        &:hover:not(:disabled) {
+          background: ${props => props.theme["green"]};
+          color:  ${props => props.theme["gray-600"]};
         }
       }
       span {

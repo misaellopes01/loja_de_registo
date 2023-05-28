@@ -38,7 +38,6 @@ export function Result() {
       }
       getSchedules() 
     }, [])
-    console.log(scheduleData)
     return (
         <ResultContainer>
           <h1>Resultados de agendamentos</h1>

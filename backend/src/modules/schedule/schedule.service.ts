@@ -96,6 +96,46 @@ export class ScheduleService {
       },
     });
   }
+  async countAllInTheNextDay() {
+    const currentDate = new Date();
+    const nextDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate() + 1,
+    );
+    while (nextDate.getDay() === 0 || nextDate.getDay() === 6) {
+      nextDate.setDate(nextDate.getDate() + 1);
+    }
+    const appointments = await this.prisma.scheduling.count({
+      where: {
+        scheduling_date: nextDate,
+      },
+    });
+    // Add citizen data: Done
+    return appointments;
+  }
+
+  async countAllInTheNextDayByNPhoneNumber(phone: number) {
+    const currentDate = new Date();
+    const nextDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate() + 1,
+    );
+    while (nextDate.getDay() === 0 || nextDate.getDay() === 6) {
+      nextDate.setDate(nextDate.getDate() + 1);
+    }
+    const appointments = await this.prisma.scheduling.count({
+      where: {
+        scheduling_date: nextDate,
+        citizen: {
+          phone,
+        },
+      },
+    });
+    // Add citizen data: Done
+    return appointments;
+  }
 
   async findAll() {
     const appointments = await this.prisma.scheduling.findMany({

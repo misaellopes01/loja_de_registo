@@ -81,7 +81,7 @@ export function Scheduling(){
           ))
         )}
       </section>
-      <div className="control">
+      <div className="control" style={{ display: 'none'}}>
           <button>
             <ArrowLeft size={24} />
           </button>

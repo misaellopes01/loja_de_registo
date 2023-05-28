@@ -14,6 +14,7 @@ import { CreateScheduleDto } from './dto/create-schedule.dto';
 
 interface QueryPhoneOrBI {
   bi_phone: string | number;
+  phone: number;
 }
 
 @Controller('schedule')
@@ -35,6 +36,11 @@ export class ScheduleController {
     return this.scheduleService.report();
   }
 
+  @Get('count/all')
+  async countAllInTheNextDay() {
+    return this.scheduleService.countAllInTheNextDay();
+  }
+
   @Get('find/:id')
   async findOne(@Param('id') id: string) {
     return this.scheduleService.findOne(id);
@@ -48,6 +54,13 @@ export class ScheduleController {
     const citizenScheduling = await this.scheduleService.findManyByCitizen(
       bi_phone,
     );
+    return citizenScheduling;
+  }
+
+  @Post('citizen/scheduling/limit')
+  async findCitizenTotalScheduling(@Body() { phone }: QueryPhoneOrBI) {
+    const citizenScheduling =
+      await this.scheduleService.countAllInTheNextDayByNPhoneNumber(phone);
     return citizenScheduling;
   }
 

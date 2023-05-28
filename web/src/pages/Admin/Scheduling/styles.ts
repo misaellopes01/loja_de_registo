@@ -101,7 +101,7 @@ export const SchedulingContainer = styled.section`
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      gap: 3rem;
+      gap: 5rem;
 
       strong {
         text-transform: uppercase;

@@ -33,10 +33,11 @@ export const AdminContainer = styled.div`
             }
 
             > img {
-                height: 40px;
-                width: 40px;
+                height: 45px;
+                width: 45px;
                 border-radius: 50%;
                 background: ${props => props.theme["gray-100"]};
+                border: 3px solid ${props => props.theme["gray-500"]};
             }
             button {
                 background: transparent;
@@ -67,14 +68,22 @@ export const AdminContainer = styled.div`
             flex-direction: column;
             padding: 2rem 1rem;
             gap: 1rem;
+            .setting {
+                position: absolute;
+                bottom: 1rem;
+            }
             
             a {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0.5rem;
                 text-decoration: none;
                 color: ${props => props.theme["gray-100"]};
                 font-weight: 300;
                 text-transform: uppercase;
                 font-family: 'Roboto', sans-serif;
-                font-size: 1.1rem;
+                font-size: 1rem;
                 padding-bottom: .5rem;
                 border-bottom: 1px solid ${props => props.theme["gray-100"]};
                 transition: color .2s, border-color .2s;
@@ -90,7 +99,7 @@ export const AdminContainer = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: ${props => props.theme["gray-700"]};
+        background: ${props => props.theme["gray-800"]};
         height: 6rem;
         color: ${props => props.theme["gray-400"]};
     }

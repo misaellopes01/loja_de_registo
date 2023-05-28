@@ -67,7 +67,7 @@ export function ScheduleAdminCard({ schedule }: ScheduleProps){
           <button 
             onClick={handleSubmit}
             disabled={(schedule.scheduling_state === 'CONFIRMED' || schedule.scheduling_state === 'EXPIRED' || httpRes === 1) ?? true}>
-              Confirmar
+              {schedule.scheduling_state === 'CONFIRMED' ? 'Confirmado' : (schedule.scheduling_state === 'EXPIRED' ? 'Cancelado' : 'Confirmar')}
           </button>
     </ScheduleAdminCardContainer>
   )

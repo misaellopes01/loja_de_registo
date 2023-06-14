@@ -13,11 +13,13 @@ interface ReportProps {
 
 export function Dashboard(){
   const [report, setReport] = useState<ReportProps>({ confirmed: 0, expired: 0, pending: 0, total: 0})
-
   const sizeIcon = 84
 
   useEffect(() => {
+    const token = localStorage.getItem('@lj_register:token')
+   
     async function fetchData(){
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
       const response = await api.get('/schedule/report')
       setReport(response.data)
     }

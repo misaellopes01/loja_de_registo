@@ -1,8 +1,9 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { SchedulingContainer } from "../Scheduling/styles"
 import { SettingsContainer } from "./styles"
-import { AuthContext } from "../../../contexts/Auth"
+import { AuthContext, UserResponse } from "../../../contexts/Auth"
 import { Trash } from "phosphor-react"
+import { api } from "../../../lib/api"
 
 
 interface ScheduleProps {
@@ -21,7 +22,31 @@ interface ScheduleProps {
 }
 
 export function Settings(){
- const { userInfo } =  useContext(AuthContext)
+  const { userInfo } =  useContext(AuthContext)
+  const [password, setPassword] = useState<string>('')
+  const [newPassword, setNewPassword] = useState<string>('')
+  
+  const [name, setName] = useState<string>(userInfo?.name || '')
+
+  const handleChangeName = async () => {
+    const token = localStorage.getItem('@lj_register:token')
+    api.defaults.headers.common.Authorization = `Bearer ${token}`
+    const response = await api.patch('/user/profile/update', { name })
+    const userData = await api.get<UserResponse>('/user/me')
+    const user = userData.data        
+    const userJSON = JSON.stringify(user)
+    localStorage.setItem('@lj_register:user', userJSON)
+    alert(response.data)
+    window.location.href = '/admin/settings'
+  }
+
+  const handleChangePassword = async () => {
+    const token = localStorage.getItem('@lj_register:token')
+    api.defaults.headers.common.Authorization = `Bearer ${token}`
+    const response = await api.patch('/user/profile/update', { password, new_password: newPassword })
+    alert(response.data)
+  }
+  
   return(
     <SettingsContainer>
       <h1>Definições</h1>
@@ -34,15 +59,15 @@ export function Settings(){
             <button>Alterar Avatar</button>    
           </div>
           <div className="profileInfo">
-            <input type="email" value={userInfo?.email} disabled/>
-            <input type="text" value={userInfo?.name}/>
-            <input type="text" name="" value={userInfo?.role} id="" />
-            <button>Alterar dados</button>
+            <input type="email" value={userInfo?.email} placeholder={userInfo?.email} disabled/>
+            <input type="text" name={name} value={name} onChange={(e) => setName(e.target.value)} placeholder={name}/>
+            <input type="text" name="" value={userInfo?.role} placeholder={userInfo?.role} disabled  />
+            <button onClick={handleChangeName}>Alterar nome</button>
           </div>
           <div className="profilePassword">
-            <span>Senha incorreta</span>
-            <input type="password" placeholder="Digite a senha atual"/>
-            <input type="password" placeholder="Digite a senha nova"/> 
+            <span>Senha</span>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Digite a senha atual"/>
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Digite a senha nova"/> 
             <button>Alterar senha</button> 
           </div> 
         </div>

@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../lib/api";
+import { isTokenExpired } from "../Router";
+import { Navigate } from "react-router-dom";
 
 type User = {
     id: string
@@ -15,6 +17,7 @@ interface AuthContextData {
     userInfo: User | null
     signOut: () => void
     signIn: (email: string, password: string) => void
+    refreshSigIn: (refresh: string) => void
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -27,7 +30,7 @@ interface AuthResponse {
   refresh_token: string
 }
 
-interface UserResponse {
+export interface UserResponse {
 	id: string
 	email: string
 	name: string
@@ -48,14 +51,13 @@ export function AuthProvider(props: AuthProvider) {
             password
         })
 
-        const { access_token } = response.data
+        const { access_token, refresh_token } = response.data
         localStorage.setItem('@lj_register:token', access_token)
+        localStorage.setItem('@lj_register:refresh_token', `eyJhotHserfer${refresh_token}`)
 
         api.defaults.headers.common.authorization = `Bearer ${access_token}`
         const userData = await api.get<UserResponse>('/user/me')
         const user = userData.data
-        
-
         const userJSON = JSON.stringify(user)
 
         localStorage.setItem('@lj_register:user', userJSON)
@@ -64,24 +66,43 @@ export function AuthProvider(props: AuthProvider) {
             window.location.href = '/admin'
         }, 1000)
     }
+    const refreshSigIn = async (refresh: string) => {
+        api.defaults.headers.common.authorization = `Bearer ${refresh}`
+        const response = await api.post<AuthResponse>('/auth/refresh', {
+            refresh
+        })
+        const { access_token, refresh_token } = response.data
+        localStorage.setItem('@lj_register:token', access_token)
+        localStorage.setItem('@lj_register:refresh_token', `eyJhotHserfer${refresh_token}`)
+
+        api.defaults.headers.common.authorization = `Bearer ${access_token}`
+        const userData = await api.get<UserResponse>('/user/me')
+        const user = userData.data
+        
+        const userJSON = JSON.stringify(user)
+
+        localStorage.setItem('@lj_register:user', userJSON)
+        setUser(user)
+    }
 
     function signOut() {
         setUser(null)
         localStorage.removeItem('@lj_register:token')
-        localStorage.removeItem('@lj_register:user')
+        localStorage.removeItem('@lj_register:refresh_token')
+        localStorage.removeItem('@lj_register:user') 
         window.location.href = '/login'
     }
 
+
     useEffect(() => {
         const userStored = localStorage.getItem('@lj_register:user')
-
         if (userStored) {
             return setUser(JSON.parse(userStored))
-        }
+        } 
     }, [])
 
     return (
-        <AuthContext.Provider value={{ signIn, userInfo, signOut }}>
+        <AuthContext.Provider value={{ signIn, userInfo, signOut, refreshSigIn }}>
             {props.children}
         </AuthContext.Provider>
     )

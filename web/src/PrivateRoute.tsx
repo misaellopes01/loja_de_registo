@@ -8,11 +8,17 @@ interface PrivateRouteProps extends RoutesProps {
 }
 
 export function PrivateRoute({ element, ...rest }: PrivateRouteProps) {
+  const { refreshSigIn } = useContext(AuthContext)
   const token = localStorage.getItem('@lj_register:token')
-
-  if (!token) {
+  const refreshTokenEncoded = localStorage.getItem('@lj_register:refresh_token')
+  const refreshToken = refreshTokenEncoded?.split('eyJhotHserfer')
+  const refresh = refreshToken?.[1]
+  console.log('Logando: ', refresh)
+  if (!token && !refresh) {
     return <Navigate to="/login" replace />;
   }
+
+  refreshSigIn(refresh!)
 
   return <Routes>{/* wrap the Route component in a Routes component */}
     <Route {...rest} element={element} />

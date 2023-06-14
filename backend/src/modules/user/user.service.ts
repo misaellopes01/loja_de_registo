@@ -58,7 +58,7 @@ export class UserService {
     });
   }
 
-  async updateUserInfo(id: string, data: UpdateUserDTO) {
+  async updateUserInfo(id: string, data: UpdateUserDTO): Promise<string> {
     const user = await this.prisma.user.findUnique({ where: { id } });
 
     if (data.password) {
@@ -78,15 +78,20 @@ export class UserService {
           id,
         },
       });
+      const message = 'palavra-passe alterada com sucesso!';
+      return message;
+    } else {
+      await this.prisma.user.update({
+        data: {
+          name: data.name ?? user.name,
+        },
+        where: {
+          id,
+        },
+      });
+      const message = 'nome alterado com sucesso!';
+      return message;
     }
-    await this.prisma.user.update({
-      data: {
-        name: data.name ?? user.name,
-      },
-      where: {
-        id,
-      },
-    });
   }
 
   async updateUserAvatar(id: string, avatar_url: string) {

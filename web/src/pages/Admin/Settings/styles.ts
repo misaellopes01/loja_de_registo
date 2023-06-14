@@ -119,6 +119,10 @@ export const SettingsContainer = styled.section`
           &:hover {
             background-color: ${props => props.theme["green-card"]};
           }
+          &:disabled {
+            cursor: not-allowed;
+          }
+
         }
       }
       .newUserInfo, .listOfUsers {

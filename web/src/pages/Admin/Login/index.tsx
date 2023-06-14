@@ -8,7 +8,7 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { signIn, userInfo } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext)
 
   // Function to handle form submission
   const handleSubmit = (e: FormEvent) => {

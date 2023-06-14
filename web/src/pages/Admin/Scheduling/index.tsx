@@ -27,10 +27,13 @@ export function Scheduling(){
   // const [filteredScheduleData, setFilteredScheduleData] = useState<ScheduleProps[]>([])
   const [search, setSearch] = useState<string>('')
   const { confirm, setConfirm } = useSearchContext()
+  
 
     useEffect(() => {
+      const token = localStorage.getItem('@lj_register:token')
       async function getSchedules() {
         try {
+          api.defaults.headers.common.Authorization = `Bearer ${token}`
           const response = await api.get('/schedule/all')
           setScheduleData(response.data)
         }

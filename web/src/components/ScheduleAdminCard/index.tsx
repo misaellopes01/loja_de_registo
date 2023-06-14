@@ -46,6 +46,8 @@ export function ScheduleAdminCard({ schedule }: ScheduleProps){
 
   async function handleSubmit() {
     setHttpRes(1)
+    const token = localStorage.getItem('@lj_register:token')
+    api.defaults.headers.common.Authorization = `Bearer ${token}`
     const response = await api.patch(`/schedule/update/${schedule.id}`)
     setConfirm(true)
     setHttpRes(response.status)

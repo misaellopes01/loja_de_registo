@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { Interval } from '@nestjs/schedule';
 import { ScheduleService } from './schedule.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
+import { JwtGuard } from '../authentication/guard';
 
 interface QueryPhoneOrBI {
   bi_phone: string | number;
@@ -25,12 +27,13 @@ export class ScheduleController {
   async create(@Body() createScheduleDto: CreateScheduleDto) {
     return await this.scheduleService.create(createScheduleDto);
   }
-
+  @UseGuards(JwtGuard)
   @Get('all')
   async findAll() {
     return this.scheduleService.findAll();
   }
 
+  @UseGuards(JwtGuard)
   @Get('report')
   async findAllReport() {
     return this.scheduleService.report();
@@ -63,7 +66,7 @@ export class ScheduleController {
       await this.scheduleService.countAllInTheNextDayByNPhoneNumber(phone);
     return citizenScheduling;
   }
-
+  @UseGuards(JwtGuard)
   @Patch('update/:id')
   async update(@Param('id') id: string) {
     await this.scheduleService.update(id);

@@ -112,4 +112,17 @@ export class UserService {
     }
     await this.prisma.user.delete({ where: { id } });
   }
+
+  async listUsers() {
+    const users = await this.prisma.user.findMany({
+      select: {
+        admin: true,
+        id: true,
+        email: true,
+        name: true,
+      },
+    });
+
+    return users;
+  }
 }

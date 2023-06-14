@@ -56,8 +56,11 @@ export const SettingsContainer = styled.section`
           cursor: pointer;
           transition: background-color .2s;
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: ${props => props.theme["green-card"]};
+          }
+          &:disabled {
+            cursor: not-allowed;
           }
         }
       }
@@ -72,6 +75,8 @@ export const SettingsContainer = styled.section`
         }
         img {
           width: 150px;
+          height: 150px;
+          object-fit: contain;
           border-radius: 100%;
           border: 5px solid ${props => props.theme.white};
           box-shadow: 0 0 10px ${props => props.theme["gray-500"]};
@@ -116,7 +121,7 @@ export const SettingsContainer = styled.section`
           cursor: pointer;
           transition: background-color .2s;
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: ${props => props.theme["green-card"]};
           }
           &:disabled {
@@ -167,9 +172,12 @@ export const SettingsContainer = styled.section`
           }
 
           button {
-            &:hover {
-            background-color: ${props => props.theme.red};
-          }
+            &:not([disabled]):hover {
+              background-color: ${props => props.theme.red};
+            }
+            &:disabled {
+              cursor: not-allowed;
+            }
           }
         }
       }

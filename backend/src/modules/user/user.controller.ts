@@ -22,6 +22,7 @@ export class UserController {
 
   @Get('me')
   async getMe(@GetUser('') user: UserProfileDTO) {
+    user.avatar_url = `http://localhost:3000/avatar/${user.avatar_url}`;
     return user
   }
 
@@ -70,6 +71,11 @@ export class UserController {
   )
   async uploadFile(@GetUser('') user: User, @UploadedFile() file) {
     return await this.userService.updateUserAvatar(user.id, file.filename)
+  }
+
+  @Get('all')
+  async listAll() {
+    return await this.userService.listUsers()
   }
 
 }    

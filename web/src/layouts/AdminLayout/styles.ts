@@ -19,6 +19,7 @@ export const AdminContainer = styled.div`
 
         > img {
             width: 100px;
+            object-fit: contain;
         }
         nav {
             display: flex;

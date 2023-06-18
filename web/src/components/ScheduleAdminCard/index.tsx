@@ -42,15 +42,41 @@ export function ScheduleAdminCard({ schedule }: ScheduleProps){
         break;
     }
   }
+
+  const verifyDates = () =>  {
+    const currentDate = new Date();
+    const schedulingDate = new Date(schedule.scheduling_date);
+    const currentDay = currentDate.getDate();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const schedulingDay = schedulingDate.getDate();
+    const schedulingMonth = schedulingDate.getMonth();
+    const schedulingYear = schedulingDate.getFullYear();
+    if (
+      currentDay === schedulingDay &&
+      currentMonth === schedulingMonth &&
+      currentYear === schedulingYear
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
   
 
   async function handleSubmit() {
-    setHttpRes(1)
-    const token = localStorage.getItem('@lj_register:token')
-    api.defaults.headers.common.Authorization = `Bearer ${token}`
-    const response = await api.patch(`/schedule/update/${schedule.id}`)
-    setConfirm(true)
-    setHttpRes(response.status)
+    if (verifyDates()) {
+      if (window.confirm("Deseja confirmar agendamento?")) {
+        setHttpRes(1)
+        const token = localStorage.getItem('@lj_register:token')
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
+        const response = await api.patch(`/schedule/update/${schedule.id}`)
+        setConfirm(true)
+        setHttpRes(response.status)
+      }
+    } else {
+      window.alert('Não pode confirmar um agendamento num dia diferente do dia marcado')
+    }
   }
 
   return(

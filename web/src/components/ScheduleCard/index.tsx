@@ -68,13 +68,13 @@ export function ScheduleCard({ schedule }: ScheduleProps) {
     doc.text('Situação do BI no Sistema Nacional:', 20, 80);
     doc.setTextColor('#333');
     doc.setFontSize(12);
-    doc.text(schedule.citizen.bi, 120, 130);
+    doc.text(schedule.citizen.bi ?? 'Novo BI', 120, 130);
     doc.text(translateState(schedule.scheduling_state)!.toString(), 120, 50);
     doc.text(String(format(new Date(schedule.scheduling_date), "d ' / ' MMMM ' / ' yyyy", {
       locale: ptBR
   }).toLocaleUpperCase()), 120, 60);
     doc.text(translateSituation(schedule.bi_situation)!.toString(), 120, 70);
-    doc.text(schedule.bi_gv_system_situation, 120, 80);
+    doc.text(schedule.bi_gv_system_situation === "" ? 'Sem informação' : schedule.bi_gv_system_situation, 120, 80);
   
     // Adding citizen details
     doc.setTextColor('#000');

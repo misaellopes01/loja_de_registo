@@ -37,7 +37,7 @@ export function Result() {
         }
       }
       getSchedules() 
-    }, [])
+    }, [scheduleData])
     return (
         <ResultContainer>
           <h1>Resultados de agendamentos</h1>

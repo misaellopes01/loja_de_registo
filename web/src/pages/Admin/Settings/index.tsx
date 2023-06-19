@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { SchedulingContainer } from "../Scheduling/styles"
 import { SettingsContainer } from "./styles"
 import { AuthContext, UserResponse } from "../../../contexts/Auth"
-import { Trash } from "phosphor-react"
+import { Trash, WarningCircle } from "phosphor-react"
 import { api } from "../../../lib/api"
 
 
@@ -102,6 +102,14 @@ export function Settings(){
     getUsers()
   }, [users])
 
+  const handleDeleteUser = async (id: string) => {
+      if (window.confirm("Confirmação de eliminação de usuário!")) {
+        const token = localStorage.getItem('@lj_register:token')
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
+        const response = await api.delete(`/user/delete/${id}`)
+      }
+  }
+
   const handleCreateNewUser = async () => {
     const token = localStorage.getItem('@lj_register:token')
     api.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -160,7 +168,7 @@ export function Settings(){
                 return(<div className="user" key={user.id}>
                 <input type="email" defaultValue={user.email} disabled/>
                 <input type="text" defaultValue={user.name} disabled/>
-                <button disabled={(user.admin || !userInfo?.admin) ?? true}><Trash size={24} /></button>
+                <button disabled={(user.admin || !userInfo?.admin) ?? true} onClick={() => handleDeleteUser(user.id)}>{(user.admin || !userInfo?.admin) ? <WarningCircle size={24} /> : <Trash size={24} />}</button>
               </div>)
               })}
               

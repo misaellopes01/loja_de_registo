@@ -161,7 +161,7 @@ export const ScheduleContainer = styled.main`
     }
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 800px) {
     form {
       width: 90%;
      

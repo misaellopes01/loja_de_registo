@@ -85,7 +85,7 @@ export const HomeContainer = styled.main`
             width: 40%;
         }
     }
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 800px) {
         .banner {
             img {
                 display: none;
@@ -172,7 +172,7 @@ export const HomeContainer = styled.main`
         }
        
     }
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 800px) {
         .about {
             img {
                 display: none;
@@ -250,7 +250,7 @@ export const HomeContainer = styled.main`
             }
         }
     }
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 800px) {
         .taxes {
             h3 {
                 font-size: 1.5rem;

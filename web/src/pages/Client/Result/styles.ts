@@ -34,7 +34,7 @@ export const ResultContainer = styled.main`
     padding-bottom: 2rem;
     gap: 2rem;
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 800px) {
       .colors {
         padding: 0 1rem;
         max-width: 90%;
@@ -69,7 +69,7 @@ export const ResultContainer = styled.main`
       margin-right: .5rem;
       border-radius: 50%;
     }
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 800px) {
       font-size: .875rem;
     }    
 `

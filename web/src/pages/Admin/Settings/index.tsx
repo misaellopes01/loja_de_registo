@@ -42,8 +42,6 @@ export function Settings(){
   const [newUserName, setNewUserName] = useState<string>('')
   const [newUserRole, setNewUserRole] = useState<string>('')
   const [newUserPassword, setNewUserPassword] = useState<string>('')
-
-
   const handleChangeName = async () => {
     const token = localStorage.getItem('@lj_register:token')
     api.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -157,10 +155,10 @@ export function Settings(){
         <div className="userCard">
           <div className="newUserInfo">
               <input type="email" value={newUserEmail} onChange={(e) => setNewUserEmail(e.target.value)} placeholder="Digite o email"  />
-              <input type="text" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} placeholder="Digite o nome"  />
+              <input type="text" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} placeholder="Primeiro e último nome"  />
               <input type="text" value={newUserRole} onChange={(e) => setNewUserRole(e.target.value)} name="" placeholder="Cargo"  />
               <input type="password" value={newUserPassword} onChange={(e) => setNewUserPassword(e.target.value)} name="" placeholder="Digite a senha"  />  
-              <button onClick={handleCreateNewUser}>Criar usuário</button>
+              <button disabled={(newUserEmail === '' && newUserName === '' && newUserRole === '' && newUserPassword === '') ?? true} onClick={handleCreateNewUser}>Criar usuário</button>
           </div>
           <div className="listOfUsers">
               <h3>Lista de usuários</h3>

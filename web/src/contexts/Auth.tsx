@@ -46,12 +46,17 @@ export function AuthProvider(props: AuthProvider) {
 
 
     const signIn = async (email: string, password: string) => {
-        const response = await api.post<AuthResponse>('/auth/signin', {
-            email,
-            password
-        })
+        let response 
+        try {
+            response = await api.post<AuthResponse>('/auth/signin', {
+                email,
+                password
+            })
+        } catch (error) {
+            window.alert('Email ou senha incorreta!')
+        }
 
-        const { access_token, refresh_token } = response.data
+        const { access_token, refresh_token } = response!.data
         localStorage.setItem('@lj_register:token', access_token)
         localStorage.setItem('@lj_register:refresh_token', `eyJhotHserfer${refresh_token}`)
 

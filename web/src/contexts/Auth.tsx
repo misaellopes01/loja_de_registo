@@ -46,7 +46,7 @@ export function AuthProvider(props: AuthProvider) {
 
 
     const signIn = async (email: string, password: string) => {
-        let response 
+        let response: any
         try {
             response = await api.post<AuthResponse>('/auth/signin', {
                 email,
